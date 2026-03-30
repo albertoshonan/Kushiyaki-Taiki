@@ -139,8 +139,7 @@ export default function EmberParticles({ image }: EmberParticlesProps) {
       colors[i * 3 + 2] = color[2];
 
       alphas[i] = Math.random();
-      // Smaller particles for spark-like appearance
-      sizes[i] = Math.random() * 18 + 4;
+      sizes[i] = Math.random() * 30 + 10;
       // More variation in rise speed
       speeds[i] = Math.random() * 0.025 + 0.005;
       drifts[i] = (Math.random() - 0.5) * 0.015;
@@ -209,9 +208,9 @@ export default function EmberParticles({ image }: EmberParticlesProps) {
 
         // Rapid flickering like real fire sparks
         const flicker =
-          0.5 +
-          0.3 * Math.sin(time * flickerRates[i] + phases[i]) +
-          0.2 * Math.sin(time * flickerRates[i] * 2.7 + phases[i] * 1.3);
+          0.7 +
+          0.2 * Math.sin(time * flickerRates[i] + phases[i]) +
+          0.1 * Math.sin(time * flickerRates[i] * 2.7 + phases[i] * 1.3);
         alpha.array[i] = fadeIn * fadeOut * flicker;
 
         // Random bright flash (spark catching air)
@@ -232,8 +231,7 @@ export default function EmberParticles({ image }: EmberParticlesProps) {
           pos.array[i * 3 + 2] = (Math.random() - 0.5) * 4;
           lifetimes[i] = 0;
           alpha.array[i] = 0;
-          // Randomize new particle size
-          sizes[i] = Math.random() * 18 + 4;
+          sizes[i] = Math.random() * 30 + 10;
         }
       }
 
