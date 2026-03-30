@@ -72,7 +72,7 @@ export default function Hero() {
           className="object-cover brightness-[0.55]"
           sizes="100vw"
           priority
-          quality={85}
+          quality={75}
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
         />

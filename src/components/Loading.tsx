@@ -139,7 +139,7 @@ export default function Loading({
   }, [onComplete]);
 
   useEffect(() => {
-    const fallback = setTimeout(handleComplete, 7000);
+    const fallback = setTimeout(handleComplete, 4000);
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -161,14 +161,14 @@ export default function Loading({
       tl.fromTo(
         char,
         { clipPath: "inset(0 0 100% 0)", opacity: 1 },
-        { clipPath: "inset(0 0 0% 0)", duration: 0.5, ease: "power3.out" },
-        0.6 + i * 0.18
+        { clipPath: "inset(0 0 0% 0)", duration: 0.4, ease: "power3.out" },
+        0.4 + i * 0.12
       );
       tl.fromTo(
         char,
         { y: -6 },
-        { y: 0, duration: 0.3, ease: "power2.out" },
-        0.6 + i * 0.18
+        { y: 0, duration: 0.25, ease: "power2.out" },
+        0.4 + i * 0.12
       );
     });
 
@@ -181,7 +181,7 @@ export default function Loading({
     );
 
     // Hold
-    tl.to({}, { duration: 0.6 });
+    tl.to({}, { duration: 0.3 });
 
     // Exit
     tl.to(charsRef.current.filter(Boolean), {
@@ -200,7 +200,7 @@ export default function Loading({
     // Screen slides away
     tl.to(screenRef.current, {
       yPercent: -100,
-      duration: 0.8,
+      duration: 0.6,
       ease: "power4.inOut",
     });
 
