@@ -152,7 +152,7 @@ export default function Loading({
     tl.fromTo(
       lineRef.current,
       { scaleX: 0 },
-      { scaleX: 1, duration: 0.6, ease: "power2.out" }
+      { scaleX: 1, duration: 0.4, ease: "power2.out" }
     );
 
     // Each character brush stroke reveal
@@ -161,14 +161,14 @@ export default function Loading({
       tl.fromTo(
         char,
         { clipPath: "inset(0 0 100% 0)", opacity: 1 },
-        { clipPath: "inset(0 0 0% 0)", duration: 0.4, ease: "power3.out" },
-        0.4 + i * 0.12
+        { clipPath: "inset(0 0 0% 0)", duration: 0.3, ease: "power3.out" },
+        0.25 + i * 0.08
       );
       tl.fromTo(
         char,
         { y: -6 },
-        { y: 0, duration: 0.25, ease: "power2.out" },
-        0.4 + i * 0.12
+        { y: 0, duration: 0.2, ease: "power2.out" },
+        0.25 + i * 0.08
       );
     });
 
@@ -176,31 +176,31 @@ export default function Loading({
     tl.fromTo(
       subRef.current,
       { opacity: 0, y: 8 },
-      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-      "-=0.2"
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      "-=0.15"
     );
 
     // Hold
-    tl.to({}, { duration: 0.3 });
+    tl.to({}, { duration: 0.15 });
 
     // Exit
     tl.to(charsRef.current.filter(Boolean), {
       opacity: 0,
       y: -15,
-      duration: 0.3,
-      stagger: 0.05,
+      duration: 0.2,
+      stagger: 0.03,
       ease: "power2.in",
     });
     tl.to(
       [subRef.current, lineRef.current],
-      { opacity: 0, duration: 0.3, ease: "power2.in" },
-      "-=0.2"
+      { opacity: 0, duration: 0.2, ease: "power2.in" },
+      "-=0.15"
     );
 
     // Screen slides away
     tl.to(screenRef.current, {
       yPercent: -100,
-      duration: 0.6,
+      duration: 0.45,
       ease: "power4.inOut",
     });
 

@@ -26,8 +26,19 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              var l=document.createElement('link');
+              l.rel='stylesheet';
+              l.href='https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap';
+              document.head.appendChild(l);
+            `,
+          }}
         />
       </head>
       <body>
