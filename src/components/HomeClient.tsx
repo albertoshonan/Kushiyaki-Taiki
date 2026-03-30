@@ -41,7 +41,6 @@ export default function HomeClient() {
           <EmberParticles image="/images/concept-fire.jpg" />
           <Specialite />
           <Drinks />
-          <EmberParticles image="/images/concept-fire.jpg" />
           <Message />
         </main>
         <Footer />
