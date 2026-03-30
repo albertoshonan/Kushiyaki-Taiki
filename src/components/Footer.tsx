@@ -88,18 +88,6 @@ export default function Footer() {
                 />
                 Instagram
               </a>
-              <a
-                href="#"
-                className="font-display flex items-center gap-2 text-white text-[13.5px] hover:opacity-70 transition-opacity"
-              >
-                <Image
-                  src="/images/icon-insta-wh.svg"
-                  alt=""
-                  width={13}
-                  height={13}
-                />
-                TikTok
-              </a>
             </div>
           </div>
 
@@ -124,7 +112,7 @@ export default function Footer() {
             <p className="font-display text-white text-[13px] tracking-[0.02em] mb-1">
               ACCESS
             </p>
-            <p className="font-sans text-white text-sm tracking-[0.02em]">〒</p>
+            <p className="font-sans text-white text-sm tracking-[0.02em]">〒231-0032 神奈川県横浜市中区不老町１丁目4−１１ ガレリア不老町 3階-B</p>
           </div>
           <div>
             <p className="font-display text-white text-sm tracking-[0.02em] mb-1">
@@ -132,11 +120,16 @@ export default function Footer() {
             </p>
             <div className="flex flex-wrap gap-4">
               <p className="font-display text-white text-[13px] tracking-[0.02em]">
-                Tel. 0166-56-8846
+                Tel. 0467-80-3013
               </p>
-              <p className="font-display text-white text-sm tracking-[0.02em]">
-                Mail.
-              </p>
+              <a
+                href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=14102132"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-display text-white text-sm tracking-[0.02em] hover:opacity-70 transition-opacity"
+              >
+                ご予約はこちら
+              </a>
             </div>
           </div>
           <p className="font-display text-white/40 text-[13px] tracking-[0.04em]">
