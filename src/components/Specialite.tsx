@@ -310,10 +310,12 @@ export default function Specialite() {
             >
               <a
                 ref={setCtaRef(0)}
-                href="#"
+                href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=14102132"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-sans border border-burgundy rounded-[3px] text-burgundy bg-white text-center py-4 px-4 text-sm tracking-[0.02em] hover:bg-burgundy hover:text-white transition-colors flex flex-col items-center justify-center"
               >
-                <span>食べログ</span>
+                <span>ご予約</span>
                 <span className="text-[11px] mt-0.5">
                   （外部サイトへリンクします）
                 </span>
@@ -333,10 +335,10 @@ export default function Specialite() {
               </a>
               <a
                 ref={setCtaRef(2)}
-                href="tel:0166-56-8846"
+                href="tel:0467-80-3013"
                 className="font-display border border-burgundy rounded-[3px] text-burgundy bg-white text-center py-4 px-4 text-sm tracking-[0.02em] hover:bg-burgundy hover:text-white transition-colors flex items-center justify-center"
               >
-                Tel. 0166-56-8846
+                Tel. 0467-80-3013
               </a>
             </div>
           </div>

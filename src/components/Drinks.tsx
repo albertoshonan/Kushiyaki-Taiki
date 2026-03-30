@@ -264,10 +264,12 @@ export default function Drinks() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-[720px] mx-auto">
             <a
-              href="#"
+              href="https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=14102132"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-sans border border-burgundy rounded-[3px] text-burgundy bg-white text-center py-4 px-4 text-sm tracking-[0.02em] hover:opacity-80 transition-opacity flex flex-col items-center justify-center"
             >
-              <span>食べログ</span>
+              <span>ご予約</span>
               <span className="text-[11px] mt-0.5">
                 （外部サイトへリンクします）
               </span>
@@ -285,10 +287,10 @@ export default function Drinks() {
               Instagram
             </a>
             <a
-              href="tel:0166-56-8846"
+              href="tel:0467-80-3013"
               className="font-display border border-burgundy rounded-[3px] text-burgundy bg-white text-center py-4 px-4 text-sm tracking-[0.02em] hover:opacity-80 transition-opacity flex items-center justify-center"
             >
-              Tel. 0166-56-8846
+              Tel. 0467-80-3013
             </a>
           </div>
         </div>

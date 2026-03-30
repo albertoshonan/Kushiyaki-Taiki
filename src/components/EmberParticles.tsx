@@ -13,26 +13,31 @@ interface EmberParticlesProps {
   image: string;
 }
 
-const PARTICLE_COUNT = 160;
+const PARTICLE_COUNT = 200;
 
 const EMBER_COLORS: [number, number, number][] = [
-  [1.0, 0.35, 0.05],
-  [1.0, 0.55, 0.1],
-  [1.0, 0.2, 0.0],
-  [1.0, 0.7, 0.2],
-  [0.9, 0.15, 0.0],
-  [1.0, 0.85, 0.3],
+  [1.0, 0.3, 0.0],
+  [1.0, 0.5, 0.05],
+  [1.0, 0.15, 0.0],
+  [1.0, 0.65, 0.15],
+  [0.85, 0.1, 0.0],
+  [1.0, 0.8, 0.25],
+  [1.0, 0.42, 0.02],
+  [0.95, 0.25, 0.0],
 ];
 
 const VERTEX_SHADER = `
   attribute float aAlpha;
   attribute float aSize;
   attribute vec3 aColor;
+  attribute float aSpeed;
   varying float vAlpha;
   varying vec3 vColor;
+  varying float vSpeed;
   void main() {
     vAlpha = aAlpha;
     vColor = aColor;
+    vSpeed = aSpeed;
     vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
     gl_PointSize = aSize * (3.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
@@ -42,13 +47,25 @@ const VERTEX_SHADER = `
 const FRAGMENT_SHADER = `
   varying float vAlpha;
   varying vec3 vColor;
+  varying float vSpeed;
   void main() {
-    float d = length(gl_PointCoord - vec2(0.5));
+    vec2 uv = gl_PointCoord - vec2(0.5);
+    // Elongate vertically based on speed to simulate rising trail
+    uv.y *= 0.5 + 0.5 * (1.0 - vSpeed);
+    float d = length(uv);
     if (d > 0.5) discard;
-    float strength = 1.0 - smoothstep(0.0, 0.5, d);
-    strength = pow(strength, 1.2);
-    float core = 1.0 - smoothstep(0.0, 0.2, d);
-    vec3 color = mix(vColor, vec3(1.0, 0.95, 0.8), core * 0.6);
+
+    // Hot glowing core
+    float core = 1.0 - smoothstep(0.0, 0.12, d);
+    // Soft outer glow
+    float glow = 1.0 - smoothstep(0.0, 0.5, d);
+    glow = pow(glow, 2.0);
+
+    // Bright white-yellow core fading to ember color
+    vec3 coreColor = vec3(1.0, 0.95, 0.7);
+    vec3 color = mix(vColor, coreColor, core * 0.8);
+
+    float strength = glow + core * 0.5;
     gl_FragColor = vec4(color, strength * vAlpha);
   }
 `;
@@ -109,10 +126,12 @@ export default function EmberParticles({ image }: EmberParticlesProps) {
     const phases = new Float32Array(PARTICLE_COUNT);
     const lifetimes = new Float32Array(PARTICLE_COUNT);
 
+    const flickerRates = new Float32Array(PARTICLE_COUNT);
+
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 12;
       positions[i * 3 + 1] = Math.random() * 10 - 5;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 3;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
 
       const color = EMBER_COLORS[Math.floor(Math.random() * EMBER_COLORS.length)];
       colors[i * 3] = color[0];
@@ -120,11 +139,14 @@ export default function EmberParticles({ image }: EmberParticlesProps) {
       colors[i * 3 + 2] = color[2];
 
       alphas[i] = Math.random();
-      sizes[i] = Math.random() * 28 + 8;
-      speeds[i] = Math.random() * 0.018 + 0.006;
-      drifts[i] = (Math.random() - 0.5) * 0.01;
+      // Smaller particles for spark-like appearance
+      sizes[i] = Math.random() * 18 + 4;
+      // More variation in rise speed
+      speeds[i] = Math.random() * 0.025 + 0.005;
+      drifts[i] = (Math.random() - 0.5) * 0.015;
       phases[i] = Math.random() * Math.PI * 2;
       lifetimes[i] = Math.random();
+      flickerRates[i] = Math.random() * 8 + 4;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -132,6 +154,7 @@ export default function EmberParticles({ image }: EmberParticlesProps) {
     geometry.setAttribute("aColor", new THREE.BufferAttribute(colors, 3));
     geometry.setAttribute("aAlpha", new THREE.BufferAttribute(alphas, 1));
     geometry.setAttribute("aSize", new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute("aSpeed", new THREE.BufferAttribute(speeds, 1));
 
     const material = new THREE.ShaderMaterial({
       vertexShader: VERTEX_SHADER,
@@ -161,38 +184,62 @@ export default function EmberParticles({ image }: EmberParticlesProps) {
       animationId = requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      time += 0.012;
+      time += 0.014;
       const pos = geometry.attributes.position as THREE.BufferAttribute;
       const alpha = geometry.attributes.aAlpha as THREE.BufferAttribute;
+      const size = geometry.attributes.aSize as THREE.BufferAttribute;
 
       for (let i = 0; i < PARTICLE_COUNT; i++) {
-        pos.array[i * 3 + 1] += speeds[i];
+        // Rise with acceleration (faster as they go up, like real embers)
+        const speedMult = 1.0 + (pos.array[i * 3 + 1] + 5) * 0.03;
+        pos.array[i * 3 + 1] += speeds[i] * speedMult;
+
+        // More turbulent horizontal drift
         pos.array[i * 3] +=
-          drifts[i] + Math.sin(time * 2.5 + phases[i]) * 0.002;
-        pos.array[i * 3 + 2] += Math.cos(time * 1.5 + phases[i]) * 0.0005;
+          drifts[i] +
+          Math.sin(time * 3.0 + phases[i]) * 0.004 +
+          Math.sin(time * 7.0 + phases[i] * 2.3) * 0.001;
+        pos.array[i * 3 + 2] +=
+          Math.cos(time * 2.0 + phases[i]) * 0.001;
 
-        lifetimes[i] += 0.004;
+        lifetimes[i] += 0.005;
         const life = lifetimes[i] % 1;
-        const fadeIn = Math.min(life * 4, 1);
-        const fadeOut = 1 - Math.max((life - 0.6) / 0.4, 0);
-        alpha.array[i] =
-          fadeIn * fadeOut * (0.6 + 0.4 * Math.sin(time * 4 + phases[i]));
+        const fadeIn = Math.min(life * 5, 1);
+        const fadeOut = 1 - Math.max((life - 0.5) / 0.5, 0);
 
-        // Stronger flicker
-        if (Math.random() < 0.04) {
-          alpha.array[i] *= 0.2;
+        // Rapid flickering like real fire sparks
+        const flicker =
+          0.5 +
+          0.3 * Math.sin(time * flickerRates[i] + phases[i]) +
+          0.2 * Math.sin(time * flickerRates[i] * 2.7 + phases[i] * 1.3);
+        alpha.array[i] = fadeIn * fadeOut * flicker;
+
+        // Random bright flash (spark catching air)
+        if (Math.random() < 0.02) {
+          alpha.array[i] = fadeIn * fadeOut * 1.2;
+        }
+        // Random dim (spark cooling)
+        if (Math.random() < 0.06) {
+          alpha.array[i] *= 0.15;
         }
 
+        // Shrink as they rise and cool
+        size.array[i] = sizes[i] * (1.0 - life * 0.4);
+
         if (pos.array[i * 3 + 1] > 5) {
-          pos.array[i * 3 + 1] = -5;
+          pos.array[i * 3 + 1] = -5 - Math.random() * 2;
           pos.array[i * 3] = (Math.random() - 0.5) * 12;
+          pos.array[i * 3 + 2] = (Math.random() - 0.5) * 4;
           lifetimes[i] = 0;
           alpha.array[i] = 0;
+          // Randomize new particle size
+          sizes[i] = Math.random() * 18 + 4;
         }
       }
 
       pos.needsUpdate = true;
       alpha.needsUpdate = true;
+      size.needsUpdate = true;
       renderer.render(scene, camera);
     };
 
