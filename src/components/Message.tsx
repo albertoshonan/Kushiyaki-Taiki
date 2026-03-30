@@ -237,7 +237,9 @@ export default function Message() {
                   Instagramで発信しています
                 </p>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/taiki.kushiyaki/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="font-display border border-black rounded-[3px] text-black bg-cream text-center py-3 px-6 text-sm tracking-[0.02em] hover:opacity-70 transition-opacity flex items-center gap-2"
                 >
                   <Image

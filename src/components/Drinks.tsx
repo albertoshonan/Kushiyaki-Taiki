@@ -275,7 +275,9 @@ export default function Drinks() {
               </span>
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/taiki.kushiyaki/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-display border border-burgundy rounded-[3px] text-burgundy bg-white text-center py-4 px-4 text-sm tracking-[0.02em] hover:opacity-80 transition-opacity flex items-center justify-center gap-2"
             >
               <Image

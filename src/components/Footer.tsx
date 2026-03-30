@@ -77,7 +77,9 @@ export default function Footer() {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="#"
+                href="https://www.instagram.com/taiki.kushiyaki/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-display flex items-center gap-2 text-white text-[13.5px] hover:opacity-70 transition-opacity"
               >
                 <Image

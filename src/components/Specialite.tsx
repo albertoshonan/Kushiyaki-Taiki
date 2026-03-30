@@ -322,7 +322,9 @@ export default function Specialite() {
               </a>
               <a
                 ref={setCtaRef(1)}
-                href="#"
+                href="https://www.instagram.com/taiki.kushiyaki/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-display border border-burgundy rounded-[3px] text-burgundy bg-white text-center py-4 px-4 text-sm tracking-[0.02em] hover:bg-burgundy hover:text-white transition-colors flex items-center justify-center gap-2"
               >
                 <Image
