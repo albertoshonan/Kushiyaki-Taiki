@@ -202,7 +202,7 @@ export default function Message() {
                   松本紀一郎
                 </h3>
                 <p className="font-display text-[--text-dark] text-base tracking-[0.06em] mt-1">
-                  KICHIRO MATSUMOTO
+                  KIICHIRO MATSUMOTO
                 </p>
               </div>
 

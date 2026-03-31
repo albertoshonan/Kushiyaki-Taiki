@@ -16,8 +16,6 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: "ABOUT", href: "#about" },
   { label: "RESTAURANT", href: "#specialite" },
-  { label: "STAY", href: "#" },
-  { label: "WINE PLAN", href: "#" },
 ];
 
 export default function Footer() {
