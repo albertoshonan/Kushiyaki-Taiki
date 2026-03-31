@@ -20,8 +20,8 @@ module.exports = {
       },
       fontFamily: {
         serif: ['"Shippori Mincho"', 'serif'],
-        display: ['"Inter"', 'sans-serif'],
-        sans: ['"Noto Sans JP"', 'sans-serif'],
+        display: ['"Shippori Mincho"', 'serif'],
+        sans: ['"Shippori Mincho"', 'serif'],
       },
       screens: {
         'xs': '375px',

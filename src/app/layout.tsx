@@ -28,14 +28,14 @@ export default function RootLayout({
         <link
           rel="preload"
           as="style"
-          href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@300;400;500&display=swap"
         />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               var l=document.createElement('link');
               l.rel='stylesheet';
-              l.href='https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap';
+              l.href='https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@300;400;500&display=swap';
               document.head.appendChild(l);
             `,
           }}
